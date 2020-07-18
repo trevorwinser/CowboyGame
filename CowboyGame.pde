@@ -1,52 +1,50 @@
-PImage cowboyImage;
 Cowboy cowboy;
+AnimatedImage image;
 boolean up, down, left, right, shoot;
 void setup() {
   fullScreen();
-  cowboyImage = loadImage("Images/Cowboy.png");
   cowboy = new Cowboy();
 }
 void draw() {
-  background(0);
+  background(255);
   cowboy.draw();
 }
 void keyPressed() {
   switch(key) {
   case 'a':
-  left = true;
-  break;
+    left = true;
+    break;
   case 'd':
-  right = true;
-  break;
+    right = true;
+    break;
   case 'w':
-  up = true;
-  break;
+    up = true;
+    break;
   case 's':
-  down = true;
-  break;
+    down = true;
+    break;
   case ' ':
-  shoot = true;
-  break;
+    shoot = true;
+    break;
   }
-  
 }
 
 void keyReleased() {
   switch(key) {
   case 'a':
-  left = false;
-  break;
+    left = false;
+    break;
   case 'd':
-  right = false;
-  break;
+    right = false;
+    break;
   case 'w':
-  up = false;
-  break;
+    up = false;
+    break;
   case 's':
-  down = false;
-  break;
+    down = false;
+    break;
   case ' ':
-  shoot = false;
-  break;
+    shoot = false;
+    break;
   }
 }
