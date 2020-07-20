@@ -2,17 +2,17 @@ class Cowboy {
   PVector position = new PVector(width/2, height/2);
   boolean facingRight = false;
   int idleCount = 0;
-  PVector weaponDirection = new PVector(0, 0);
   AnimatedImage imageIdle, imageWalkingLeft, imageWalkingRight;
   AnimatedImage currentImage;
   Cowboy() {
-    imageIdle = new AnimatedImage("C:/Users/Trevor/Documents/Processing/CowboyGame/Images/CowboyIdle", "png", 2, 30);
-    imageWalkingLeft = new AnimatedImage("C:/Users/Trevor/Documents/Processing/CowboyGame/Images/CowboyWalkingLeft", "png", 2, 30);
-    imageWalkingRight = new AnimatedImage("C:/Users/Trevor/Documents/Processing/CowboyGame/Images/CowboyWalkingRight", "png", 2, 30);
+    imageIdle = new AnimatedImage("C:/Users/Trevor/Documents/Processing/CowboyGame/Images/CowboyIdle", "png", 2, 30, 0, 0);
+    imageWalkingLeft = new AnimatedImage("C:/Users/Trevor/Documents/Processing/CowboyGame/Images/CowboyWalkingLeft", "png", 2, 10, 0, 0);
+    imageWalkingRight = new AnimatedImage("C:/Users/Trevor/Documents/Processing/CowboyGame/Images/CowboyWalkingRight", "png", 2, 10, 0, 0);
   }
   void draw() {
-    if (idleCount > 300) {
+    if (idleCount > 90) {
       //idle = true;
+      canShoot = false;
       currentImage = imageIdle;
     } else {
       if (facingRight) {
@@ -20,39 +20,22 @@ class Cowboy {
       } else {
         currentImage = imageWalkingLeft;
       }
+      drawWeaponCrosshair();
     }
-
     currentImage.draw(position.x, position.y);
-    drawWeaponCrosshair();
-    // drawWeapon();
-
     update();
   }
 
   void drawWeaponCrosshair() {
     noFill();
-    stroke(0);
+    strokeWeight(3);
+    stroke(200, 100, 100);
     line(mouseX - 10, mouseY, mouseX + 10, mouseY);
     line(mouseX, mouseY - 10, mouseX, mouseY + 10);
     ellipse(mouseX, mouseY, 20, 20);
   }
-
-  void drawWeapon() {
-    float xOffset = position.x + currentImage.width / 2;
-    float yOffset = position.y + currentImage.height / 2;
-    pushMatrix();
-    translate(xOffset, yOffset);
-
-    stroke(255);
-    PVector weapon = weaponDirection.copy();
-    line(0, 0, weapon.x - xOffset, weapon.y - yOffset); 
-    popMatrix();
-  }
   void update() {
-    float previousX = position.x;
-
     idleCount++;
-
     if (up) {
       idleCount = 0;
       position.y -= 10;
@@ -69,7 +52,6 @@ class Cowboy {
       idleCount = 0;
       position.x += 10;
     }
-
     position.x = constrain(position.x, 0, width-currentImage.width);
     position.y = constrain(position.y, 0, height-currentImage.height);
 
@@ -79,8 +61,19 @@ class Cowboy {
 
       facingRight = false;
     }
-
-    weaponDirection.x = mouseX;
-    weaponDirection.y = mouseY;
+    if (mousePressed) {
+      if (canShoot) {
+        canShoot = false;
+        shotTimer = 0;
+        bullets.add( new Bullet(position.copy()));
+      }
+     
+    }
+    if (canShoot == false) {
+     shotTimer++; 
+    }
+    if (shotTimer >= delay) {
+     canShoot = true; 
+    }
   }
 }

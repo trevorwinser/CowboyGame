@@ -1,13 +1,36 @@
 Cowboy cowboy;
 AnimatedImage image;
+Cactus[] cacti;
+ArrayList<Bullet> bullets;
 boolean up, down, left, right, shoot;
+boolean canShoot;
+float delay, shotTimer;
+int i;
+//Vars to regulate shooting speed
 void setup() {
+  //sets the time between each shot in seconds divided by 60(frames)
+  delay = 15;
+  imageMode(CENTER);
   fullScreen();
+  //fullScreen();
   cowboy = new Cowboy();
+  cacti = new Cactus[10];
+  for (int i = 0; i < cacti.length; i++) {
+    cacti[i] = new Cactus(random(width), random(height));
+  }
+  bullets = new ArrayList<Bullet>();
 }
 void draw() {
-  background(255);
+  background(#D3C886);
+
+  for (int i = 0; i < cacti.length; i++) {
+    cacti[i].draw();
+  }
   cowboy.draw();
+  for (i = bullets.size()-1; i >= 0; i--) {
+    Bullet bullet = bullets.get(i);
+    bullet.update();
+  }
 }
 void keyPressed() {
   switch(key) {
