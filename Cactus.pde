@@ -1,7 +1,7 @@
 class Cactus {
   float x, y;
   AnimatedImage cactusImage;
-    Cactus(float x, float y) {
+  Cactus(float x, float y) {
     this.x = x;
     this.y = y;
     for (int i = 0; i < cacti.length; i++) {

@@ -1,15 +1,15 @@
-Cowboy cowboy;
+Cowboy cowboy; //<>//
 AnimatedImage image;
 Cactus[] cacti;
+Zombie zombie;
+//ArrayList<Zombie> zombies;
 ArrayList<Bullet> bullets;
 boolean up, down, left, right, shoot;
-boolean canShoot;
-float delay, shotTimer;
-int i;
+
 //Vars to regulate shooting speed
 void setup() {
   //sets the time between each shot in seconds divided by 60(frames)
-  delay = 15;
+
   imageMode(CENTER);
   fullScreen();
   //fullScreen();
@@ -19,6 +19,8 @@ void setup() {
     cacti[i] = new Cactus(random(width), random(height));
   }
   bullets = new ArrayList<Bullet>();
+  zombie = new Zombie(random(width), random(height));
+  //zombies = new ArrayList<Zombie>();
 }
 void draw() {
   background(#D3C886);
@@ -26,10 +28,21 @@ void draw() {
   for (int i = 0; i < cacti.length; i++) {
     cacti[i].draw();
   }
+  zombie.draw();
+  //zombies.add( new Zombie(random(width), random(height)));
   cowboy.draw();
-  for (i = bullets.size()-1; i >= 0; i--) {
+
+  for (int i = 0; i < bullets.size(); ) {
     Bullet bullet = bullets.get(i);
-    bullet.update();
+    if (bullet.update()) {
+      bullets.remove(i) ;
+    } else {
+      i++;
+    }
+  }
+
+  if (cowboy.isDead()) {
+    filter(GRAY);
   }
 }
 void keyPressed() {
