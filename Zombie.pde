@@ -94,8 +94,14 @@ class Zombie {
     case 9:
       position.x = position.x + cos(rotation/180*PI)*speed;
       position.y = position.y + sin(rotation/180*PI)*speed;
+      if (oldPosX > position.x) {
+        currentImage = imageWalkingRight;
+      } else {
+        currentImage = imageWalkingLeft;
+      }
       break;
-    } position.x = constrain(position.x, 0, width-currentImage.width/2);
+    } 
+    position.x = constrain(position.x, 0, width-currentImage.width/2);
     position.y = constrain(position.y, 0, height-currentImage.height/2);
   }
 }
