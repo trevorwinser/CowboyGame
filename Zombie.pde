@@ -1,9 +1,7 @@
 class Zombie {
-  int health;
+  
   int direction;
   float oldPosX, oldPosY, rotation, speed, intelligence;
-  int hurtCount = 0;
-  boolean hurt;
   PVector position = new PVector();
   AnimatedImage currentImage, imageWalkingLeft, imageWalkingRight, imageHurtLeft, imageHurtRight;
   Zombie(float positionx, float positiony) {
@@ -12,7 +10,6 @@ class Zombie {
     speed = random(5, 10);
     intelligence = random(3, 8);
     //creates a health system, that allows smarter zombies to have higher health, and faster zombies have less
-    health = int (intelligence / speed * 20);
     imageWalkingLeft = new AnimatedImage("C:/Users/Trevor/Documents/Processing/CowboyGame/Images/ZombieWalkingLeft", "png", 2, 10, 0, 0);
     imageWalkingRight = new AnimatedImage("C:/Users/Trevor/Documents/Processing/CowboyGame/Images/ZombieWalkingRight", "png", 2, 10, 0, 0);
     imageHurtLeft = new AnimatedImage("C:/Users/Trevor/Documents/Processing/CowboyGame/Images/ZombieHurtLeft", "png", 3, 1, 0, 0);
@@ -23,23 +20,6 @@ class Zombie {
     currentImage.draw(position.x, position.y);
     decideMovement();
     update();
-  }
-  void startHurt() {
-    hurt = true;
-    hurtCount = 0;
-    if (health > 0) {
-      health--;
-    }
-  }
-
-  void stopHurt() {
-    hurt = false;
-  }
-  void updateHurt() {
-    //creates a delay between hits
-    if (++hurtCount > 30) {
-      hurt = false;
-    }
   }
   void decideMovement() {
     //checks if the zombie is smart enough to catch the players scent, the higher the intelligence, the higher the range.

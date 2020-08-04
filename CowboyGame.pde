@@ -1,6 +1,7 @@
 Cowboy cowboy; //<>//
 AnimatedImage image;
 Cactus[] cacti;
+Collision collision;
 ArrayList<Zombie> zombies;
 ArrayList<Bullet> bullets;
 boolean up, down, left, right, shoot;
@@ -19,6 +20,9 @@ void setup() {
   }
   bullets = new ArrayList<Bullet>();
   zombies = new ArrayList<Zombie>();
+  for (int i = 0; i < 5; i++) {
+    zombies.add(new Zombie(random(width), random(height)));
+  }
 }
 void draw() {
   background(#D3C886);
@@ -26,8 +30,8 @@ void draw() {
   for (int i = 0; i < cacti.length; i++) {
     cacti[i].draw();
   }
-  for (int i = 0; i < 5; i++) {
-   zombies.add(new Zombie(random(width), random(height))); 
+  for (int i = 0; i < zombies.size(); i++) {
+    zombies.get(i).draw();
   }
   cowboy.draw();
 
@@ -40,10 +44,56 @@ void draw() {
     }
   }
 
+  updateCollision();
+
   if (cowboy.isDead()) {
     filter(GRAY);
   }
 }
+
+
+void updateCollision() {
+
+  collisionCactus();
+  collisionZombie();
+  collisionBullet();
+}
+void  collisionCactus() {
+  if (cowboy.hurt == false) {
+    for (int i = 0; i < cacti.length; i++) {
+      if (dist(cowboy.position.x, cowboy.position.y, cacti[i].x, cacti[i].y) < 80 ) {
+        cowboy.startHurt();
+        break;
+      }
+    }
+  }
+}
+void collisionZombie() {
+  if (cowboy.hurt == false) {
+    for (int i = 0; i < zombies.size(); i++) {
+
+      if (dist(cowboy.position.x, cowboy.position.y, zombies.get(i).position.x, zombies.get(i).position.y) < 80) {
+
+
+        cowboy.startHurt();
+        break;
+      }
+    }
+  }
+}
+void collisionBullet() {
+  for (int i = 0; i < bullets.size(); i++) {
+    Bullet bullet = bullets.get(i);
+    for (int j = 0; j < zombies.size(); j++) {
+      Zombie zombie = zombies.get(j);  
+        if (dist(bullet.origin.x, bullet.origin.y, zombie.position.x, zombie.position.y) < 40) {
+          zombies.remove(j);
+          break;
+        }
+    }
+  }
+}
+
 void keyPressed() {
   switch(key) {
   case 'a':
