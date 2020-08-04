@@ -5,6 +5,7 @@ Collision collision;
 ArrayList<Zombie> zombies;
 ArrayList<Bullet> bullets;
 boolean up, down, left, right, shoot;
+Collision collisionList = null;
 
 //Vars to regulate shooting speed
 void setup() {
@@ -27,6 +28,10 @@ void setup() {
 void draw() {
   background(#D3C886);
 
+  if (collisionList != null) {
+    collisionList.draw();
+  }
+
   for (int i = 0; i < cacti.length; i++) {
     cacti[i].draw();
   }
@@ -44,6 +49,7 @@ void draw() {
     }
   }
 
+  
   updateCollision();
 
   if (cowboy.isDead()) {
@@ -74,7 +80,7 @@ void collisionZombie() {
 
       if (dist(cowboy.position.x, cowboy.position.y, zombies.get(i).position.x, zombies.get(i).position.y) < 80) {
 
-
+        collisionList = new Collision(cowboy.position.x, cowboy.position.y, collisionList);
         cowboy.startHurt();
         break;
       }
