@@ -76,18 +76,7 @@ class Cowboy {
   }
 
   void update() {
-    if (!hurt) {
-      if (dist(position.x, position.y, zombie.position.x, zombie.position.y) < 80) {
-        startHurt();
-      } else {
-        for (int i = 0; i < cacti.length; i++) {
-          if (dist(position.x, position.y, cacti[i].x, cacti[i].y) < 80 ) {
-            startHurt();
-            break;
-          }
-        }
-      }
-    }
+
     updateHurt();
 
     idleCount++;

@@ -1,8 +1,7 @@
 Cowboy cowboy; //<>//
 AnimatedImage image;
 Cactus[] cacti;
-Zombie zombie;
-//ArrayList<Zombie> zombies;
+ArrayList<Zombie> zombies;
 ArrayList<Bullet> bullets;
 boolean up, down, left, right, shoot;
 
@@ -19,8 +18,7 @@ void setup() {
     cacti[i] = new Cactus(random(width), random(height));
   }
   bullets = new ArrayList<Bullet>();
-  zombie = new Zombie(random(width), random(height));
-  //zombies = new ArrayList<Zombie>();
+  zombies = new ArrayList<Zombie>();
 }
 void draw() {
   background(#D3C886);
@@ -28,8 +26,9 @@ void draw() {
   for (int i = 0; i < cacti.length; i++) {
     cacti[i].draw();
   }
-  zombie.draw();
-  //zombies.add( new Zombie(random(width), random(height)));
+  for (int i = 0; i < 5; i++) {
+   zombies.add(new Zombie(random(width), random(height))); 
+  }
   cowboy.draw();
 
   for (int i = 0; i < bullets.size(); ) {
