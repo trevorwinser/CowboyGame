@@ -1,4 +1,5 @@
 class Cactus {
+  //uses AnimatedImage to create a cactus animation that can start on either frame 0 or 1, and have a random pause between cycling
   float x, y;
   AnimatedImage cactusImage;
   Cactus(float x, float y) {

@@ -6,9 +6,7 @@ class Cowboy {
   boolean hurt;
   boolean idle;
   boolean canShoot = true;
-
   float delay, shotTimer;
-  int health = 10;
   AnimatedImage imageIdle, imageWalkingLeft, imageWalkingRight, imageHurt, imageDead;
   AnimatedImage currentImage;
   Cowboy() {
@@ -18,37 +16,25 @@ class Cowboy {
     imageWalkingRight = new AnimatedImage("Images/CowboyWalkingRight", "png", 2, 10, 0, 0);
     imageHurt = new AnimatedImage("Images/CowboyHurt", "png", 3, 1, 0, 0);
     imageDead = new AnimatedImage("Images/CowboyDead", "png", 1, 1, 0, 0);
-
     currentImage = imageIdle;
   }
-
   boolean isIdle() {
     return idleCount > 90;
   }
-  boolean isDead() {
-    return health == 0;
+      boolean isDead() {
+    return health.healthCounter == 0;
   }
-
   void draw() {
-
     currentImage.draw(position.x, position.y);
     if (!isDead() && !isIdle()) {
       drawWeaponCrosshair();
     }
-
     if (!isDead()) {
       update();
     }   else {
      currentImage = imageDead; 
-    }
-
-
-    fill(0);
-    textAlign(LEFT);
-    textSize(20);
-    text("Health: " + health, 0, 60);
+    }  
   }
-
   void drawWeaponCrosshair() {
     noFill();
     strokeWeight(3);
@@ -57,26 +43,21 @@ class Cowboy {
     line(mouseX, mouseY - 10, mouseX, mouseY + 10);
     ellipse(mouseX, mouseY, 20, 20);
   }
-
   void startHurt() {
     canShoot = false;
     hurt = true;
     hurtCount = 0;
-    if (health > 0) {
-      health--;
+    if (health.healthCounter > 0) {
+      health.healthCounter--;
     }
   }
-
   void updateHurt() {
     if (++hurtCount > 90) {
       hurt = false;
     }
   }
-
   void update() {
-
     updateHurt();
-
     idleCount++;
     if (up) {
       idleCount = 0;
@@ -116,8 +97,7 @@ class Cowboy {
     if (shotTimer >= delay) {
       canShoot = true;
     }
-
-    if (health == 0) {
+    if (health.healthCounter == 0) {
       currentImage = imageDead;
     } else if (hurt && hurtCount < 16) {
       currentImage = imageHurt;

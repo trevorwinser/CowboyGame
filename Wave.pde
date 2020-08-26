@@ -6,6 +6,7 @@ class Wave {
   int waveCounter;
   int highestWave;
   void draw() {
+        textAlign(LEFT);
     textSize(20); 
     text("Wave: " +waveCounter, 0, 20);
     text("Highest Wave: " +highestWave, 0, 40);
@@ -41,7 +42,6 @@ class Wave {
   void waveFailure() {
     filter(GRAY);
   }
-
   void difficultySign() {
     if (currentWave == 0) {
       rectMode(CENTER);
@@ -51,6 +51,7 @@ class Wave {
       fill(0);
       textAlign(CENTER);
       text("Difficulty: " + difficulty, width/2, height/3);
+      text("Click me!", width/2, height/3 + 20);
     }
   }
   void update() {
@@ -63,7 +64,7 @@ class Wave {
       waveCounter = 0;
       cowboy.position.x = width/2;
       cowboy.position.y = height/2;
-      cowboy.health = 10;
+      health.healthCounter = 10;
       for (int i = 0; i < zombies.size(); i++) {
         zombies.remove(i);
       }

@@ -8,7 +8,6 @@ class Collision {
     this.y = y;
     this.next = next;
   }
-  
   void draw() {
   Blood.draw(x, y);
     

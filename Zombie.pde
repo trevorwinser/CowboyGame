@@ -45,7 +45,6 @@
       health--;
     }
   }
-
   void updateHurt() {
     if (++hurtCount > 5) {
       hurt = false;
