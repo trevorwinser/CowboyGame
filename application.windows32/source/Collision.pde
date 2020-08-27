@@ -8,10 +8,9 @@ class Collision {
     this.y = y;
     this.next = next;
   }
-  
   void draw() {
   Blood.draw(x, y);
-    
+    //Creates a new object for each time a blood splatter occurs (this allows multiple blood splatters being visible instead of just the latest one)
     if (next != null) {
       next.draw();
     }

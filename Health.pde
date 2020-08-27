@@ -7,9 +7,11 @@ class Health {
     hp = loadImage("Images/Health2.png");
   }
   void draw() {
+    //10 skulls drawn every time
     for (int i = 0; i < 10; i++) {
      image(skull, cowboy.position.x - cowboy.currentImage.height/2 + (i*skull.width) - 5, cowboy.position.y - cowboy.currentImage.height/2 - 10); 
     }
+    //hearts drawn based on healthCounter
     for (int i = 0; i < healthCounter; i++) {
            image(hp, cowboy.position.x - cowboy.currentImage.height/2 + (i*skull.width) - 5, cowboy.position.y - cowboy.currentImage.height/2 - 10); 
     }

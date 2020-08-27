@@ -1,4 +1,4 @@
-class Zombie {
+ class Zombie {
   int health;
   int direction;
   int hurtCount;
@@ -45,7 +45,6 @@ class Zombie {
       health--;
     }
   }
-
   void updateHurt() {
     if (++hurtCount > 5) {
       hurt = false;
@@ -59,7 +58,7 @@ class Zombie {
       rotation = atan2(oldPosY - position.y, oldPosX - position.x) / PI * 180;
       direction = 9;
       //creates a chance every frame to change random movement if not within distance of player
-    } else if (random(10) > 9.5) {
+    } else if (random(10) > 9) {
       direction = int(random(9));
     }
   }
@@ -127,14 +126,13 @@ class Zombie {
     case 8:
       break;
     case 9:
-      //follows player at optimal speed (without the *2 and /sqrt(2) it would be slower diagonally)
+      //Follows player with a multiplier that makes it harder to catch up to the player if going diagonally
       position.x = position.x + cos(rotation/180*PI)*speed*2/sqrt(2);
       position.y = position.y + sin(rotation/180*PI)*speed*2/sqrt(2);
       if (oldPosX > position.x) {
         if (hurt) {
           currentImage = imageHurtRight;
         } else {
-
           currentImage = imageWalkingRight;
         }
       } else {
@@ -146,6 +144,7 @@ class Zombie {
       }
       break;
     } 
+    //makes it so the zombies can't leave the screen
     position.x = constrain(position.x, 0, width-currentImage.width/2);
     position.y = constrain(position.y, 0, height-currentImage.height/2);
   }

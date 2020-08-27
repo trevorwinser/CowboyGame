@@ -120,6 +120,7 @@ void helpMenu() {
   text("R to restart", width/2, 60);
   text("H to toggle help menu", width/2, 80);
   text("Left click to shoot", width/2, 100);
+  text("Objective is to finish as many waves possible before dying", width/2, 120);
 }
 void keyPressed() {
   //switch case to detect which key is being pressed, if it isn't one of these keys it won't affect the booleans.

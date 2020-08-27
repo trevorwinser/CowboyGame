@@ -8,13 +8,11 @@ class Bullet {
     //places the bullet in the middle of the room
     this.origin = origin;
     //this checks the angle
-
-
     oldPosX = mouseX;
     oldPosY = mouseY;
     rotation = atan2(oldPosY - origin.y, oldPosX - origin.x) / PI * 180;
     //bullet speed
-    speed = 30;//change this number to change the speed
+    speed = 30;  //change this number to change the speed
   } 
   boolean update() {
     //move the bullet
