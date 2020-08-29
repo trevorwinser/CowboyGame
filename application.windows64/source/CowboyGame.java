@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class CowboyGame extends PApplet {
 
-Cowboy cowboy; //<>//
+Cowboy cowboy;
 AnimatedImage image;
 //called it cacti because its funny as a plural of cactus
 Cactus[] cacti;
@@ -75,10 +75,8 @@ public void mousePressed() {
   if (wave.currentWave == 0) {
     if (dist(mouseX, mouseY, width/2, height/3) < 100) {
       wave.difficulty++;
-      wave.update();
       if (wave.difficulty > 3) {
         wave.difficulty = 1;
-        wave.update();
       }
     }
   }
@@ -421,13 +419,14 @@ class Health {
     hp = loadImage("Images/Health2.png");
   }
   public void draw() {
-    //10 skulls drawn every time
-    for (int i = 0; i < 10; i++) {
-     image(skull, cowboy.position.x - cowboy.currentImage.height/2 + (i*skull.width) - 5, cowboy.position.y - cowboy.currentImage.height/2 - 10); 
-    }
     //hearts drawn based on healthCounter
-    for (int i = 0; i < healthCounter; i++) {
+    int i;
+    for (i = 0; i < healthCounter; i++) {
            image(hp, cowboy.position.x - cowboy.currentImage.height/2 + (i*skull.width) - 5, cowboy.position.y - cowboy.currentImage.height/2 - 10); 
+    }
+    //10 skulls drawn every time
+    for (; i < 10; i++) {
+     image(skull, cowboy.position.x - cowboy.currentImage.height/2 + (i*skull.width) - 5, cowboy.position.y - cowboy.currentImage.height/2 - 10); 
     }
   }
 }
