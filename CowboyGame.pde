@@ -59,10 +59,8 @@ void mousePressed() {
   if (wave.currentWave == 0) {
     if (dist(mouseX, mouseY, width/2, height/3) < 100) {
       wave.difficulty++;
-      wave.update();
       if (wave.difficulty > 3) {
         wave.difficulty = 1;
-        wave.update();
       }
     }
   }
